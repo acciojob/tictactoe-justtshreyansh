@@ -1,7 +1,5 @@
-// Select inputs and elements by updated IDs/classes
 let name1 = document.querySelector("#player1");
 let name2 = document.querySelector("#player2");
-
 let startGame = document.querySelector("#submit");
 let form = document.querySelector("#myForm");
 let board = document.querySelector(".board");
@@ -24,8 +22,8 @@ const winningCombo = [
 ];
 
 // Start game button handler
-function clickHandlerButton(e) {
-  e.preventDefault();
+startGame.addEventListener("click", function(event) {
+  event.preventDefault(); // Prevent the form from submitting
   let firstPlayer = name1.value.trim();
   let secondPlayer = name2.value.trim();
 
@@ -34,20 +32,15 @@ function clickHandlerButton(e) {
     return;
   }
 
-  form.style.display = "none";
-  board.style.display = "block";
-  output.textContent = `${firstPlayer}, you're up`;
-}
-
-startGame.addEventListener("click", clickHandlerButton);
+  form.style.display = "none"; // Hide the form
+  board.style.display = "block"; // Show the board
+  output.textContent = `${firstPlayer}, you're up`; // Display turn message
+});
 
 // Game cell click handler
 document.querySelectorAll(".gridContainer > div").forEach((cell) => {
   cell.addEventListener("click", () => {
     if (!gameActive || cell.textContent !== "") return;
-
-    const firstPlayer = name1.value.trim();
-    const secondPlayer = name2.value.trim();
 
     const cellId = parseInt(cell.id, 10);
 
@@ -56,19 +49,19 @@ document.querySelectorAll(".gridContainer > div").forEach((cell) => {
       clickedSquaresX.push(cellId);
       if (checkWin(clickedSquaresX)) {
         gameActive = false;
-        output.textContent = `${firstPlayer}, congratulations you won!`;
+        output.textContent = `${name1.value}, congratulations you won!`;
         return;
       }
-      output.textContent = `${secondPlayer}, you're up`;
+      output.textContent = `${name2.value}, you're up`;
     } else {
       cell.textContent = "O";
       clickedSquaresY.push(cellId);
       if (checkWin(clickedSquaresY)) {
         gameActive = false;
-        output.textContent = `${secondPlayer}, congratulations you won!`;
+        output.textContent = `${name2.value}, congratulations you won!`;
         return;
       }
-      output.textContent = `${firstPlayer}, you're up`;
+      output.textContent = `${name1.value}, you're up`;
     }
 
     if (clickedSquaresX.length + clickedSquaresY.length === 9) {
@@ -76,7 +69,7 @@ document.querySelectorAll(".gridContainer > div").forEach((cell) => {
       output.textContent = "It's a draw!";
     }
 
-    turnX = !turnX;
+    turnX = !turnX; // Switch turns
   });
 });
 
