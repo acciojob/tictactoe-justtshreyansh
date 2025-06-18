@@ -1,16 +1,51 @@
 <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Tic Tac Toe</h1>
 
-<html>
+      <!-- Form with updated IDs -->
+      <form id="myForm">
+        <div class="inputContainer">
+          <div class="firstContainer">
+            <label for="player-1">Player 1:</label>
+            <input type="text" name="player1" id="player-1" required />
+          </div>
 
-<head>
-	<link rel="stylesheet" href="styles.css">
-</head>
+          <div class="secondContainer">
+            <label for="player-2">Player 2:</label>
+            <input type="text" name="player2" id="player-2" required />
+          </div>
 
-<body>
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
-</script>
+          <button id="submit" type="submit">Start Game</button>
+        </div>
+      </form>
 
-</body>
+      <!-- Board and message container (initially hidden, show after submit) -->
+      <div class="board" style="display:none;">
+        
+        <div class="message"></div>
 
+        <div class="gridContainer">
+          <div id="1"></div>
+          <div id="2"></div>
+          <div id="3"></div>
+          <div id="4"></div>
+          <div id="5"></div>
+          <div id="6"></div>
+          <div id="7"></div>
+          <div id="8"></div>
+          <div id="9"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
 </html>
