@@ -1,7 +1,6 @@
-//your JS code here. If required.
 // Select inputs and elements by updated IDs/classes
-let name1 = document.querySelector("#player-1");
-let name2 = document.querySelector("#player-2");
+let name1 = document.querySelector("#player1");
+let name2 = document.querySelector("#player2");
 
 let startGame = document.querySelector("#submit");
 let form = document.querySelector("#myForm");
@@ -45,8 +44,7 @@ startGame.addEventListener("click", clickHandlerButton);
 // Game cell click handler
 document.querySelectorAll(".gridContainer > div").forEach((cell) => {
   cell.addEventListener("click", () => {
-    if (!gameActive) return;
-    if (cell.textContent !== "") return; // Ignore if already filled
+    if (!gameActive || cell.textContent !== "") return;
 
     const firstPlayer = name1.value.trim();
     const secondPlayer = name2.value.trim();
@@ -56,37 +54,33 @@ document.querySelectorAll(".gridContainer > div").forEach((cell) => {
     if (turnX) {
       cell.textContent = "X";
       clickedSquaresX.push(cellId);
+      if (checkWin(clickedSquaresX)) {
+        gameActive = false;
+        output.textContent = `${firstPlayer}, congratulations you won!`;
+        return;
+      }
       output.textContent = `${secondPlayer}, you're up`;
     } else {
       cell.textContent = "O";
       clickedSquaresY.push(cellId);
+      if (checkWin(clickedSquaresY)) {
+        gameActive = false;
+        output.textContent = `${secondPlayer}, congratulations you won!`;
+        return;
+      }
       output.textContent = `${firstPlayer}, you're up`;
     }
 
-    if (checkWin(clickedSquaresX)) {
-      gameActive = false;
-      output.textContent = `${firstPlayer}, congratulations you won!`;
-      return;
-    }
-
-    if (checkWin(clickedSquaresY)) {
-      gameActive = false;
-      output.textContent = `${secondPlayer}, congratulations you won!`;
-      return;
-    }
-
-    // Check for draw (all cells filled)
     if (clickedSquaresX.length + clickedSquaresY.length === 9) {
       gameActive = false;
       output.textContent = "It's a draw!";
-      return;
     }
 
     turnX = !turnX;
   });
 });
 
-// Helper: Check if playerSquares contains a winning combo
+// Check for winning combination
 function checkWin(playerSquares) {
   return winningCombo.some(combo =>
     combo.every(cell => playerSquares.includes(cell))
