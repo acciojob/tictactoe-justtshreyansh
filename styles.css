@@ -162,8 +162,11 @@ input:focus {
   align-items: center;
   cursor: pointer;
   user-select: none;
+  height: 110px; /* ✅ Add this */
+  width: 110px;  /* ✅ Add this */
   transition: background-color 0.3s ease, transform 0.15s ease, box-shadow 0.3s ease;
 }
+
 
 .gridContainer > div:hover {
   background-color: #d0d7e1;
